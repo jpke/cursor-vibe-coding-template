@@ -1,0 +1,23 @@
+---
+description: Detailed steps for template setup workflow when initializing a project
+alwaysApply: false
+---
+
+# Template Setup Workflow
+
+## Agent-Driven Initialization
+When a user prompts "initialize this project as <my project name>", I will automatically handle template setup:
+
+1. **Copy `.cursor/.mcp.json.example` to `.cursor/mcp.json`** and prompt user for their API keys
+2. **Optionally copy `.env.example` to `.env`** only if they plan to use TaskMaster CLI (not needed for MCP workflow)
+3. **Remove template-specific content** and customize for their project:
+   - **Move `README.md` to `docs/how_to_use_this_template.md`** to preserve template documentation
+   - **Copy `.cursor/templates/project_readme.md` to the project root as `README.md`** to create the new project-specific README
+   - **Update the new `README.md`** by replacing `[Project Name]` placeholder with user-provided name or "My Project"
+   - Update `SECURITY.md` to remove template references
+   - Remove or update any hardcoded paths in configuration files
+
+## Environment File Distinction
+- **Template `.env.example`**: Contains TaskMaster CLI configuration (ANTHROPIC_API_KEY, PERPLEXITY_API_KEY, etc.)
+- **Project `.env`**: Will contain application-specific configuration (database URLs, app API keys, etc.)
+- **Never mix these**: TaskMaster configuration is separate from project application configuration

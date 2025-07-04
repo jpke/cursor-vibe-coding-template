@@ -5,19 +5,7 @@ alwaysApply: true
 ---
 
 ## Template Setup Workflow
-- **Agent-Driven Initialization**: When a user prompts "initialize this project as <my project name>", I will automatically handle template setup:
-  1. **Copy `.cursor/.mcp.json.example` to `.cursor/mcp.json`** and prompt user for their API keys
-  2. **Optionally copy `.env.example` to `.env`** only if they plan to use TaskMaster CLI (not needed for MCP workflow)
-  3. **Remove template-specific content** and customize for their project:
-     - **Move `README.md` to `docs/how_to_use_this_template.md`** to preserve template documentation
-     - **Copy `.cursor/templates/project_readme.md` to the project root as `README.md`** to create the new project-specific README
-     - **Update the new `README.md`** by replacing `[Project Name]` placeholder with user-provided name or "My Project"
-     - Update `SECURITY.md` to remove template references
-     - Remove or update any hardcoded paths in configuration files
-- **Environment File Distinction**:
-  - **Template `.env.example`**: Contains TaskMaster CLI configuration (ANTHROPIC_API_KEY, PERPLEXITY_API_KEY, etc.)
-  - **Project `.env`**: Will contain application-specific configuration (database URLs, app API keys, etc.)
-  - **Never mix these**: TaskMaster configuration is separate from project application configuration
+For detailed steps on template setup when initializing a project, see [template_setup.mdc](mdc:.cursor/rules/template_setup.mdc).
 
 ## MCP Server Workflows
 
@@ -48,35 +36,7 @@ alwaysApply: true
 ## Git Workflow
 
 ### Repository Initialization
-**Note**: This is only needed when cloning the template directly. When using this as a GitHub template (recommended), a fresh repository is automatically created.
-
-When you request to "initialize git repo" (only needed for cloned templates), I will perform the following steps:
-1. **Clear template git history**: Remove the existing `.git` directory to start fresh (`rm -rf .git`).
-2. Initialize a local Git repository (`git init`).
-3. Use the **GitHub CLI** (not MCP server) to create a new **private** remote repository on GitHub:
-   ```bash
-   gh repo create --private --enable-issues --clone=false
-   ```
-4. Create a repository-scoped GitHub Personal Access Token using the GitHub CLI:
-   ```bash
-   gh auth token --hostname github.com --scopes "issues:write,contents:read,metadata:read" --repo-specific
-   ```
-5. Update the `.cursor/mcp.json` file to use the new scoped GitHub PAT in the GitHub MCP server configuration:
-   ```json
-   "github": {
-     "url": "https://api.githubcopilot.com/mcp/",
-     "headers": {
-       "Authorization": "Bearer <new_scoped_pat>"
-     }
-   }
-   ```
-6. Add the new remote to the local repository, stage all initial files, and push the first commit to the `main` branch:
-   ```bash
-   git remote add origin git@github.com:username/repo-name.git  # Use SSH format for authentication
-   git add .
-   git commit -m "feat: initial project setup"
-   git push -u origin main
-   ```
+For detailed steps on initializing a git repository when cloning the template directly, see [repository_initialization.mdc](mdc:.cursor/rules/repository_initialization.mdc).
 
 ### Branch Protection Workflow
 - **NEVER commit directly to main branch** - All changes must go through pull request process
@@ -85,7 +45,7 @@ When you request to "initialize git repo" (only needed for cloned templates), I 
   2. **Make Changes**: Implement your changes on the feature branch
   3. **Commit Changes**: `git add .` and `git commit -m "descriptive message"`
   4. **Push Branch**: `git push -u origin feature/descriptive-name`
-  5. **Open Pull Request**: `gh pr create --title "Title" --body "Description"` or use GitHub web interface
+  5. **🚨 CRITICAL: Open Pull Request**: `gh pr create --title "Title" --body "Description"` or use GitHub web interface - **THIS STEP IS MANDATORY**
   6. **Merge via PR**: Never use `git push origin main` directly
 - **Branch Naming Conventions**:
   - `feature/feature-name` for new features
