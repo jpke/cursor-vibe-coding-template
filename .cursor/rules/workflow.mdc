@@ -10,7 +10,7 @@ alwaysApply: true
     2. Optionally copy `.env.example` to `.env` only if they plan to use TaskMaster CLI (not needed for MCP workflow)
     3. Remove any template-specific content (like this README) and customize for their project
   - **Clarify Configuration**: Make clear that `.env` is optional and only needed for CLI usage, not the recommended MCP workflow
-  - **Environment File Distinction**: 
+  - **Environment File Distinction**:
     - **Template `.env.example`**: Contains TaskMaster CLI configuration (ANTHROPIC_API_KEY, PERPLEXITY_API_KEY, etc.)
     - **Project `.env`**: Will contain application-specific configuration (database URLs, app API keys, etc.)
     - **Never mix these**: TaskMaster configuration is separate from project application configuration
@@ -72,4 +72,13 @@ alwaysApply: true
 
 - **Git CLI Best Practices**:
   - **Always use SSH format for git remotes** (`git@github.com:user/repo.git`) rather than HTTPS format to leverage SSH key authentication instead of token-based authentication
-  - **Use `| cat` suffix for commands that might use a pager** (like `gh repo view | cat`, `git log | cat`) to prevent interactive paging that requires manual exit with `:q`
+  - **CRITICAL: Always append `| cat` to commands that use pagers** to prevent interactive paging that requires manual exit with `:q`. This is MANDATORY for:
+    - `git log` commands: `git log --oneline -5 | cat`
+    - `git show` commands: `git show HEAD | cat`
+    - `git diff` commands: `git diff | cat`
+    - `gh repo view` commands: `gh repo view | cat`
+    - `gh pr view` commands: `gh pr view | cat`
+    - `gh issue view` commands: `gh issue view | cat`
+    - `man` commands: `man git | cat`
+    - Any command that might output more than a screen's worth of content
+  - **Rule Exception**: Only omit `| cat` when you specifically need interactive features (like `git add -p` for patch mode)
