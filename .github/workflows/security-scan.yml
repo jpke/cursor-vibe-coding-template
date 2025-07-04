@@ -55,7 +55,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['javascript', 'python', 'go', 'typescript', 'swift', 'github-actions']
+        language: ['javascript', 'python', 'go', 'typescript', 'swift']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -94,13 +94,6 @@ jobs:
               ;;
             swift)
               if find . -name "*.swift" | head -1 | grep -q .; then
-                echo "has-files=true" >> $GITHUB_OUTPUT
-              else
-                echo "has-files=false" >> $GITHUB_OUTPUT
-              fi
-              ;;
-            github-actions)
-              if find .github/workflows -name "*.yml" -o -name "*.yaml" | head -1 | grep -q .; then
                 echo "has-files=true" >> $GITHUB_OUTPUT
               else
                 echo "has-files=false" >> $GITHUB_OUTPUT
