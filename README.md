@@ -70,6 +70,7 @@ This template provides a ready-to-use development environment with:
 - **🐙 GitHub MCP Integration** - Seamless GitHub repository and issue management
 - **📝 Pre-configured Cursor Rules** - Optimized rules for frontend, testing, Python, and workflow automation
 - **🚀 Automated Git Workflows** - Intelligent repository initialization with scoped permissions
+- **🏷️ Automated Release Workflow** - Semantic versioning with conventional commits and automated release notes
 - **🤖 Agent-Driven Setup** - AI assistant handles template initialization automatically
 
 ## 🛠️ What's Included
@@ -104,6 +105,8 @@ project_template/
 │   ├── tasks/                # Task files
 │   └── templates/            # PRD templates
 ├── .github/
+│   ├── workflows/            # GitHub Actions workflows
+│   │   └── release.yml       # Automated release workflow
 │   └── instructions/         # GitHub workflow instructions
 ├── AGENTS.md                 # TaskMaster integration guide
 ├── CLAUDE.md                 # Claude Code integration guide
@@ -166,6 +169,14 @@ The AI agent automatically follows this workflow:
 - **User Decides** - Explicit approval required for significant operations
 - **Controlled Automation** - MCP servers assist but don't override user decisions
 - **Progress Tracking** - Development logged with user awareness
+
+### 🏷️ Automated Release Management
+**Conventional Commits + Automatic Releases:**
+- **Semantic Versioning** - Uses conventional commits (`feat:`, `fix:`, `docs:`) for automatic version bumping
+- **Release on Merge** - Automatically creates releases when PRs are merged to `main`
+- **Smart Release Notes** - Categorizes commits into features, fixes, docs, etc.
+- **Manual Override** - Can manually trigger releases with specific version types
+- **See [Release Workflow](docs/RELEASES.md)** for complete documentation
 
 ### 🎵 The Vibe
 Intelligent assistance with human control:
@@ -232,6 +243,7 @@ The template includes example configurations in `.cursor/.mcp.json.example`. Cop
 
 - **AGENTS.md** - Comprehensive TaskMaster AI integration guide
 - **CLAUDE.md** - Claude Code specific workflows and commands
+- **docs/RELEASES.md** - Automated release workflow with conventional commits
 - `.cursor/rules/` - Detailed coding rules and patterns
 - `.taskmaster/templates/` - PRD templates and examples
 
