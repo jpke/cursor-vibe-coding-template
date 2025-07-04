@@ -78,7 +78,7 @@ Then use the TaskMaster MCP workflow with these example prompts:
 **Prompt:** `"Initialize TaskMaster for this project"`
 - Uses the `initialize_project` MCP tool to set up project structure
 
-#### Step 2: Create and Validate PRD  
+#### Step 2: Create and Validate PRD
 **Prompt:** `"Help me create a Product Requirements Document for [describe your project idea]"`
 - Collaborate with AI to write a comprehensive PRD
 - Refine requirements through iterative discussion
@@ -110,7 +110,7 @@ The MCP integration provides intelligent assistance with explicit workflows:
 - AI waits for explicit triggers before generating or executing tasks
 - All task operations require your approval before proceeding
 
-#### Memory MCP  
+#### Memory MCP
 - Context is maintained across sessions with the `memory` MCP server
 - **User confirmation required** before any knowledge graph operations
 - **Example prompts:** `"I confirm you can save this information to memory"` or `"Please don't update memory yet"`
@@ -155,7 +155,7 @@ GOOGLE_API_KEY=your_key_here      # Optional
 GITHUB_TOKEN=your_scoped_pat_here
 ```
 
-**Important Notes:** 
+**Important Notes:**
 - The `.env.example` file is provided for users who want to use TaskMaster CLI commands directly. For the recommended MCP workflow in Cursor, only `.cursor/mcp.json` configuration is needed.
 - **Environment File Distinction**: This template's `.env.example` contains TaskMaster CLI configuration. Your project may also need its own `.env` file for application configuration (database URLs, app API keys, etc.) - these are completely separate concerns.
 
@@ -216,7 +216,7 @@ The AI follows this automated workflow:
 ### 🎵 The Vibe
 Intelligent assistance with human control:
 1. **Express your intent** in natural language
-2. **AI structures and suggests** work through MCP integration  
+2. **AI structures and suggests** work through MCP integration
 3. **You approve and direct** with explicit confirmation points
 4. **Code in flow** with full context awareness and controlled automation
 5. **Ship iteratively** with transparent progress tracking
@@ -240,4 +240,4 @@ This template evolves with usage. The `meta_rules.mdc` enables self-improving pa
 
 ---
 
-**Happy vibe coding! 🎵✨** 
+**Happy vibe coding! 🎵✨**
