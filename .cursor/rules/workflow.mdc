@@ -5,11 +5,13 @@ alwaysApply: true
 ---
 
 ## Template Setup Workflow
-- **Agent-Driven Initialization**: When a user prompts "initialize the repo" or similar, I will automatically handle template setup:
+- **Agent-Driven Initialization**: When a user prompts "set up the template" or "initialize the repo" (for cloned templates), I will automatically handle template setup:
   1. **Copy `.cursor/.mcp.json.example` to `.cursor/mcp.json`** and prompt user for their API keys
   2. **Optionally copy `.env.example` to `.env`** only if they plan to use TaskMaster CLI (not needed for MCP workflow)
   3. **Remove template-specific content** and customize for their project:
-     - Replace `README.md` with their project-specific README
+     - **Move `README.md` to `docs/how_to_use_this_template.md`** to preserve template documentation
+     - **Create new project-specific `README.md`** using the template from `.cursor/templates/project_readme.md`
+     - Replace `[Project Name]` placeholder with user-provided name or "My Project"
      - Update `SECURITY.md` to remove template references
      - Remove or update any hardcoded paths in configuration files
 - **Environment File Distinction**:
@@ -46,7 +48,9 @@ alwaysApply: true
 ## Git Workflow
 
 ### Repository Initialization
-When you request to "initialize git repo", I will perform the following steps:
+**Note**: This is only needed when cloning the template directly. When using this as a GitHub template (recommended), a fresh repository is automatically created.
+
+When you request to "initialize git repo" (only needed for cloned templates), I will perform the following steps:
 1. **Clear template git history**: Remove the existing `.git` directory to start fresh (`rm -rf .git`).
 2. Initialize a local Git repository (`git init`).
 3. Create a `.gitignore` file with at least the following entries:

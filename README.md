@@ -15,24 +15,34 @@ A comprehensive project template for **vibe coding** in Cursor with pre-configur
 
 ## 🚀 Quick Start
 
-### 1. Template Setup (After Cloning)
+### 1. Create Your Project
 
-**Agent-Driven Setup (Recommended)**
+**Recommended: Use as GitHub Template**
+1. Click "Use this template" button on GitHub
+2. Create your new repository from the template
+3. Clone your new repository:
+   ```bash
+   git clone git@github.com:yourusername/your-project-name.git
+   cd your-project-name
+   cursor .
+   ```
+4. Prompt the AI agent: `"Set up the template for my new project"`
+
+**Alternative: Clone Template Directly**
 ```bash
-# After cloning the template to your project folder
+# If you cloned the template repository directly
+git clone git@github.com:your-org/project_template.git my-new-project
 cd my-new-project
-
-# Open in Cursor
 cursor .
 
 # Then prompt the AI agent:
 # "Initialize the repo for my new project"
 ```
 
-The AI agent will automatically handle all template setup including:
+The AI agent will automatically handle template setup including:
 - Setting up your MCP configuration
 - Customizing files for your project
-- Initializing git repository and GitHub repo
+- Initializing git repository and GitHub repo (only needed for cloned templates)
 
 **Manual Setup (If Preferred)**
 ```bash
@@ -57,7 +67,8 @@ cp .env.example .env  # Optional
 ### 2. Start Vibe Coding
 ```bash
 cursor .
-# Then prompt: "Initialize the repo for my new project"
+# For GitHub template usage: "Set up the template for my new project"
+# For cloned templates: "Initialize the repo for my new project"
 ```
 
 ## ✨ Features
@@ -115,9 +126,11 @@ project_template/
 This template is optimized for **vibe coding** - a development style that balances structure with creative flow using controlled MCP workflows.
 
 ### 🚀 Initialize Git Repository
+**Note:** Only needed when cloning the template directly. When using as a GitHub template (recommended), your repository is already initialized.
+
 **Prompt:** `"Initialize git repo"` or `"Initialize the repo for my new project"`
 
-The AI agent automatically follows this workflow:
+For cloned templates, the AI agent automatically follows this workflow:
 1. **Template Cleanup** - Removes template-specific `.git` history
 2. **Local Git Setup** - Initializes fresh repository with proper `.gitignore`
 3. **GitHub Repository** - Creates private repo with issues enabled via GitHub CLI
