@@ -1,5 +1,5 @@
 ---
-description: Rules for project workflows including Git, Taskmaster, and Memory MCP.
+description: Rules for project workflows including Git, Taskmaster, Memory MCP, and Context7 MCP.
 globs: "**/*"
 alwaysApply: true
 ---
@@ -18,6 +18,32 @@ alwaysApply: true
 
 - **Memory MCP Workflow**:
   - **User Confirmation Required**: Before creating, updating, or deleting any entities or relationships in the Memory MCP's knowledge graph, I must first explain what I intend to do and ask for your explicit confirmation.
+
+- **Context7 MCP Workflow**:
+  - **Purpose**: Use Context7 MCP to fetch current, accurate library documentation and implementation examples during development tasks.
+  - **When to Use Context7 MCP**:
+    1. **Before implementing features with specific libraries**: Always check current documentation and best practices
+    2. **When encountering library-specific errors**: Get up-to-date troubleshooting information and API changes
+    3. **For version-specific guidance**: When working with particular versions of libraries that may have breaking changes
+    4. **When user asks about library features**: Provide current information rather than potentially outdated training data
+    5. **During code reviews**: Verify that implementations follow current library conventions
+    6. **For implementation examples**: Get real-world usage patterns and code samples
+  - **Required Two-Step Process**:
+    1. **First**: Use `mcp_context7_resolve-library-id` to convert library name (e.g., "react", "nextjs") to Context7-compatible ID
+    2. **Then**: Use `mcp_context7_get-library-docs` with the resolved ID to fetch documentation
+  - **Best Practices**:
+    - Always resolve library ID first - never skip this step
+    - Use `topic` parameter to focus on specific areas (e.g., "hooks", "routing", "authentication")
+    - Adjust `tokens` parameter based on complexity (default 10000, increase for comprehensive docs)
+    - Combine with `research` tool when Context7 doesn't have the specific library
+  - **Example Usage Triggers**:
+    - "How do I implement authentication with NextJS?" → resolve "nextjs" → get docs with topic "authentication"
+    - "I'm getting errors with React hooks" → resolve "react" → get docs with topic "hooks"
+    - "Show me how to use Prisma with TypeScript" → resolve "prisma" → get docs with increased tokens
+  - **Integration with Development Flow**:
+    - Use Context7 MCP early in task implementation planning
+    - Reference retrieved documentation in code comments when using library-specific patterns
+    - Update Taskmaster subtasks with Context7 findings for future reference
 
 - **Taskmaster Workflow**:
   - **PRD as GitHub Issue**:
