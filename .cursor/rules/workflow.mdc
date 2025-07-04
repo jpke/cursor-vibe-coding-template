@@ -108,3 +108,31 @@ alwaysApply: true
     - `man` commands: `man git | cat`
     - Any command that might output more than a screen's worth of content
   - **Rule Exception**: Only omit `| cat` when you specifically need interactive features (like `git add -p` for patch mode)
+
+- **Git Branch Protection Workflow**:
+  - **NEVER commit directly to main branch** - All changes must go through pull request process
+  - **Required Workflow for All Changes**:
+    1. **Create Feature Branch**: `git checkout -b feature/descriptive-name` or `git checkout -b fix/issue-description`
+    2. **Make Changes**: Implement your changes on the feature branch
+    3. **Commit Changes**: `git add .` and `git commit -m "descriptive message"`
+    4. **Push Branch**: `git push -u origin feature/descriptive-name`
+    5. **Open Pull Request**: `gh pr create --title "Title" --body "Description"` or use GitHub web interface
+    6. **Merge via PR**: Never use `git push origin main` directly
+  - **Branch Naming Conventions**:
+    - `feature/feature-name` for new features
+    - `fix/bug-description` for bug fixes
+    - `docs/documentation-update` for documentation changes
+    - `refactor/component-name` for refactoring work
+    - `chore/maintenance-task` for maintenance tasks
+  - **Before Starting Work**:
+    ```bash
+    git checkout main
+    git pull origin main
+    git checkout -b feature/your-feature-name
+    ```
+  - **Emergency Exception**: Only in true emergencies (production down, security fix) may direct commits to main be considered, and they must be followed immediately by a retroactive PR for review
+  - **Pull Request Requirements**:
+    - Descriptive title and body explaining the changes
+    - Link to related issues when applicable
+    - Ensure all CI checks pass before merging
+    - Request review from team members when working in team environments
