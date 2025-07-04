@@ -1,0 +1,43 @@
+.taskmaster/docs/
+
+# Taskmaster generated files
+.taskmaster/state.json
+.taskmaster/reports/
+.cursor/mcp.json
+.specstory/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dev-debug.log
+# Dependency directories
+node_modules/
+venv/
+# Environment variables
+.env
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+.DS_Store
+
+# Task files
+.taskmaster/tasks/
+# tasks.json
+tasks/
+
+# Security scanning
+results.sarif
+.gitleaks-report.json
+gitleaks-report.json
+trufflehog-report.json
+.secrets-baseline
+*.secrets

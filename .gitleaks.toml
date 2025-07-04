@@ -1,0 +1,156 @@
+# Gitleaks configuration file
+# This file defines rules for detecting secrets in your repository
+
+title = "Gitleaks configuration"
+
+# Global allowlist for file extensions and paths that should be ignored
+[allowlist]
+description = "Global allowlist"
+files = [
+    '''(.*?)(jpg|jpeg|png|gif|bmp|ico|svg|webp)$''',
+    '''(.*?)(ttf|woff|woff2|eot|otf)$''',
+    '''(.*?)(exe|dll|so|dylib|a|lib)$''',
+    '''(.*?)(zip|tar|gz|bz2|7z|rar)$''',
+    '''(.*?)(pdf|doc|docx|xls|xlsx|ppt|pptx)$''',
+    '''(.*?)\.min\.(js|css)$''',
+    '''(.*?)package-lock\.json$''',
+    '''(.*?)yarn\.lock$''',
+    '''(.*?)pnpm-lock\.yaml$''',
+    '''(.*?)\.git/''',
+    '''(.*?)node_modules/''',
+    '''(.*?)\.next/''',
+    '''(.*?)dist/''',
+    '''(.*?)build/''',
+    '''(.*?)\.vscode/''',
+    '''(.*?)\.idea/''',
+    '''(.*?)\.env\.example$''',
+    '''(.*?)\.env\.template$''',
+    '''(.*?)\.sample$''',
+    '''(.*?)README\.md$''',
+    '''(.*?)CHANGELOG\.md$''',
+    '''(.*?)LICENSE$''',
+    '''(.*?)\.gitignore$''',
+    '''(.*?)\.gitleaks\.toml$''',
+]
+
+paths = [
+    '''\.env\.example''',
+    '''\.env\.template''',
+    '''\.env\.sample''',
+    '''README\.md''',
+    '''CHANGELOG\.md''',
+    '''LICENSE''',
+    '''\.gitignore''',
+    '''\.github/workflows/''',
+]
+
+# Common regex patterns for false positives
+regexes = [
+    '''(client|customer|user)_?(id|key|token|secret|password).*=.*[\"\']?(test|demo|example|placeholder|xxx|yyy|zzz|abc|123|sample)[\"\']?''',
+    '''(api|access|auth|session)_?(key|token|secret|password).*=.*[\"\']?(test|demo|example|placeholder|xxx|yyy|zzz|abc|123|sample)[\"\']?''',
+    '''[\"\']?(test|demo|example|placeholder|xxx|yyy|zzz|abc|123|sample|localhost|127\.0\.0\.1)[\"\']?''',
+    '''// .*(TODO|FIXME|NOTE|HACK).*''',
+    '''# .*(TODO|FIXME|NOTE|HACK).*''',
+    '''/\*.*\*/''',
+    '''<!--.*-->''',
+]
+
+# Rule definitions
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(?:api|access|auth|secret|token)_?(?:key|token|secret)\s*[:=]\s*['"][''"']?[a-zA-Z0-9_\-]{20,}['"][''"']?'''
+keywords = ["api", "key", "token", "secret", "access"]
+
+[[rules]]
+id = "aws-access-key-id"
+description = "AWS Access Key ID"
+regex = '''AKIA[0-9A-Z]{16}'''
+keywords = ["AKIA"]
+
+[[rules]]
+id = "aws-secret-access-key"
+description = "AWS Secret Access Key"
+regex = '''(?i)aws_secret_access_key\s*[:=]\s*['"][''"']?[a-zA-Z0-9/+]{40}['"][''"']?'''
+keywords = ["aws_secret_access_key"]
+
+[[rules]]
+id = "github-personal-access-token"
+description = "GitHub Personal Access Token"
+regex = '''ghp_[a-zA-Z0-9]{36}'''
+keywords = ["ghp_"]
+
+[[rules]]
+id = "github-oauth-access-token"
+description = "GitHub OAuth Access Token"
+regex = '''gho_[a-zA-Z0-9]{36}'''
+keywords = ["gho_"]
+
+[[rules]]
+id = "github-app-token"
+description = "GitHub App Token"
+regex = '''(ghu|ghs)_[a-zA-Z0-9]{36}'''
+keywords = ["ghu_", "ghs_"]
+
+[[rules]]
+id = "google-api-key"
+description = "Google API Key"
+regex = '''AIza[0-9A-Za-z\-_]{35}'''
+keywords = ["AIza"]
+
+[[rules]]
+id = "slack-token"
+description = "Slack Token"
+regex = '''xox[baprs]-[0-9]{12}-[0-9]{12}-[a-zA-Z0-9]{24}'''
+keywords = ["xoxb", "xoxa", "xoxp", "xoxr", "xoxs"]
+
+[[rules]]
+id = "stripe-api-key"
+description = "Stripe API Key"
+regex = '''(?i)sk_live_[a-zA-Z0-9]{24}'''
+keywords = ["sk_live_"]
+
+[[rules]]
+id = "private-key"
+description = "Private Key"
+regex = '''-----BEGIN[A-Z ]*PRIVATE KEY-----'''
+keywords = ["-----BEGIN", "PRIVATE KEY"]
+
+[[rules]]
+id = "generic-password"
+description = "Generic Password"
+regex = '''(?i)(?:password|passwd|pwd)\s*[:=]\s*['"][''"']?[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]{8,}['"][''"']?'''
+keywords = ["password", "passwd", "pwd"]
+entropy = 3.5
+
+[[rules]]
+id = "database-url"
+description = "Database URL"
+regex = '''(?i)(?:database_url|db_url|mongodb_uri|postgres_url|mysql_url)\s*[:=]\s*['"][''"']?[a-zA-Z][a-zA-Z0-9+.-]*://[^\s'"][''"']+['"][''"']?'''
+keywords = ["database_url", "db_url", "mongodb_uri", "postgres_url", "mysql_url"]
+
+[[rules]]
+id = "jwt-token"
+description = "JWT Token"
+regex = '''eyJ[a-zA-Z0-9_\-]*\.eyJ[a-zA-Z0-9_\-]*\.[a-zA-Z0-9_\-]*'''
+keywords = ["eyJ"]
+
+[[rules]]
+id = "basic-auth"
+description = "Basic Auth"
+regex = '''(?i)authorization\s*:\s*basic\s+[a-zA-Z0-9+/=]+'''
+keywords = ["authorization", "basic"]
+
+[[rules]]
+id = "bearer-token"
+description = "Bearer Token"
+regex = '''(?i)authorization\s*:\s*bearer\s+[a-zA-Z0-9\-_\.]+'''
+keywords = ["authorization", "bearer"]
+
+# Entropy detection for random strings that might be secrets
+[[rules]]
+id = "high-entropy-string"
+description = "High Entropy String"
+regex = '''[a-zA-Z0-9+/=]{32,}'''
+entropy = 4.3
+keywords = []
