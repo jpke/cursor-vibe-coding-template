@@ -1,6 +1,0 @@
----
-globs: "**/*.py"
-alwaysApply: false
----
-- **Python Virtual Environments**:
-  - Always use a virtual environment (`venv`) when running Python scripts. Check for an existing `venv` in the current or parent directories before creating a new one. Activate the `venv` before installing packages or executing scripts.

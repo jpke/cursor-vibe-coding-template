@@ -1,7 +1,0 @@
----
-globs: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.html", "**/*.css", "**/*.scss", "**/*.sass", "**/*.vue"]
-alwaysApply: false
----
-- **MVP Development Workflow**:
-  - **Start with HTML**: Every application MVP, regardless of its final platform (e.g., mobile app), should begin as a basic HTML page. This enables rapid prototyping and iteration.
-  - **Styling Guidelines**: If you provide a `design.json` file, I will use it as the primary guideline for all styling and visual design choices.

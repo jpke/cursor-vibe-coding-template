@@ -12,6 +12,7 @@ This template provides a ready-to-use development environment with:
 - **🐙 GitHub MCP Integration** - Seamless GitHub repository and issue management
 - **📝 Pre-configured Cursor Rules** - Optimized rules for frontend, testing, Python, and workflow automation
 - **🚀 Automated Git Workflows** - Intelligent repository initialization with scoped permissions
+- **🤖 Agent-Driven Setup** - AI assistant handles template initialization automatically
 
 ## 🛠️ What's Included
 
@@ -22,12 +23,15 @@ This template provides a ready-to-use development environment with:
 - **GitHub** - Repository management and issue tracking
 
 ### Cursor Rules
-- `frontend.mdc` - Frontend development best practices
-- `testing.mdc` - Testing strategies and patterns
-- `python.mdc` - Python development guidelines
-- `meta_rules.mdc` - Self-improving rule management
+- `development.mdc` - Frontend, testing, and Python development best practices
+- `rule_management.mdc` - Rule structure and formatting guidelines
+- `self_improve.mdc` - Self-improving rule management patterns
 - `workflow.mdc` - Git, Taskmaster, and Memory MCP workflows
 - `taskmaster/` - Comprehensive TaskMaster workflow rules
+
+### Setup & Configuration
+- `.cursor/.mcp.json.example` - Template MCP server configuration
+- `.env.example` - Optional environment variables for CLI usage
 
 ### Project Structure
 ```
@@ -50,13 +54,31 @@ project_template/
 
 ## 🚀 Quick Start
 
-### 1. Clone and Setup
+### 1. Template Setup (After Cloning)
+
+**Agent-Driven Setup (Recommended)**
 ```bash
-# Clone this template to your new project folder
-git clone <your-template-repo> my-new-project
+# After cloning the template to your project folder
 cd my-new-project
 
-# Copy and configure MCP settings (REQUIRED for MCP workflow)
+# Open in Cursor
+cursor .
+
+# Then prompt the AI agent:
+# "Initialize the repo for my new project"
+```
+
+The AI agent will automatically handle all template setup including:
+- Setting up your MCP configuration
+- Customizing files for your project
+- Initializing git repository and GitHub repo
+
+**Manual Setup (If Preferred)**
+```bash
+# After cloning the template to your project folder
+cd my-new-project
+
+# REQUIRED: Set up MCP configuration
 cp .cursor/.mcp.json.example .cursor/mcp.json
 # Edit .cursor/mcp.json with your API keys
 
@@ -64,15 +86,35 @@ cp .cursor/.mcp.json.example .cursor/mcp.json
 # (Not needed for the recommended MCP workflow)
 cp .env.example .env  # Optional
 # Add your API keys to .env  # Only if using CLI
+
+# IMPORTANT: Customize for your project
+# - Replace this README.md with your project's README
+# - Update SECURITY.md to remove template references
+# - Remove or update any hardcoded paths in configuration files
 ```
 
-### 2. Initialize Project with TaskMaster MCP
+### 2. Start Vibe Coding
 ```bash
-# Open in Cursor with MCP integration
 cursor .
+# Then prompt: "Initialize the repo for my new project"
 ```
 
-Then use the TaskMaster MCP workflow with these example prompts:
+## 🎯 Vibe Coding Workflow
+
+This template is optimized for **vibe coding** - a development style that balances structure with creative flow using controlled MCP workflows.
+
+### 🚀 Initialize Git Repository
+**Prompt:** `"Initialize git repo"` or `"Initialize the repo for my new project"`
+
+The AI agent automatically follows this workflow:
+1. **Template Cleanup** - Removes template-specific `.git` history
+2. **Local Git Setup** - Initializes fresh repository with proper `.gitignore`
+3. **GitHub Repository** - Creates private repo with issues enabled via GitHub CLI
+4. **Scoped Authentication** - Generates repository-specific GitHub PAT with minimal permissions
+5. **MCP Configuration** - Updates `.cursor/mcp.json` with the scoped token
+6. **Initial Commit** - Pushes your new project to `main` branch using SSH authentication
+
+### 📋 PRD-Driven Development (User-Controlled)
 
 #### Step 1: Initialize TaskMaster
 **Prompt:** `"Initialize TaskMaster for this project"`
@@ -88,7 +130,7 @@ Then use the TaskMaster MCP workflow with these example prompts:
 **Prompt:** `"I accept this PRD. Please create a GitHub Issue with the full PRD content"`
 - AI creates GitHub Issue containing the complete PRD text
 - GitHub Issue becomes the single source of truth for requirements
-- **Local PRD file is automatically deleted** to prevent confusion and ensure GitHub Issue remains authoritative
+- **Local PRD file is automatically deleted** to prevent confusion
 
 #### Step 4: Generate Tasks (Explicit Trigger Required)
 **Prompt:** `"Start working on the PRD"` or `"Generate tasks from the PRD Issue"`
@@ -102,28 +144,27 @@ Then use the TaskMaster MCP workflow with these example prompts:
 - AI will not automatically start task execution without your approval
 - Uses `next_task` MCP tool to suggest optimal starting points based on dependencies
 
-### 3. Vibe Coding with MCP
-The MCP integration provides intelligent assistance with explicit workflows:
+### 🧠 Memory & Context Management
+**Memory MCP Workflow:**
+- **Before Memory Operations** - AI asks: `"May I save this information to the knowledge graph?"`
+- **User Confirmation** - `"Yes, you can update memory"` or `"No, don't save this yet"`
+- **Context Preservation** - Understanding maintained across sessions with explicit consent
 
-#### TaskMaster MCP
-- Tasks are managed through the `taskmaster-ai` MCP server with user confirmation required
-- AI waits for explicit triggers before generating or executing tasks
-- All task operations require your approval before proceeding
+### 🔄 Development Loop with Explicit Control
+- **AI Suggests** - Provides recommendations and analysis
+- **User Decides** - Explicit approval required for significant operations
+- **Controlled Automation** - MCP servers assist but don't override user decisions
+- **Progress Tracking** - Development logged with user awareness
 
-#### Memory MCP
-- Context is maintained across sessions with the `memory` MCP server
-- **User confirmation required** before any knowledge graph operations
-- **Example prompts:** `"I confirm you can save this information to memory"` or `"Please don't update memory yet"`
+### 🎵 The Vibe
+Intelligent assistance with human control:
+1. **Express your intent** in natural language
+2. **AI structures and suggests** work through MCP integration
+3. **You approve and direct** with explicit confirmation points
+4. **Code in flow** with full context awareness and controlled automation
+5. **Ship iteratively** with transparent progress tracking
 
-#### GitHub Integration
-- Repository and issue management through GitHub MCP server
-- Automatic scoped token creation during git initialization
-- PRD Issues serve as single source of truth for project requirements
-
-#### Development Flow
-- No manual CLI commands needed - everything works through Cursor's AI interface
-- AI provides guidance but requires explicit permission for significant operations
-- Workflow respects user control while providing intelligent automation
+The MCP servers provide powerful assistance while keeping you in the driver's seat.
 
 ## 🔧 Configuration
 
@@ -176,53 +217,6 @@ The template includes example configurations in `.cursor/.mcp.json.example`. Cop
 }
 ```
 
-## 🎯 Vibe Coding Workflow
-
-This template is optimized for **vibe coding** - a development style that balances structure with creative flow using controlled MCP workflows:
-
-### 🚀 Git Repository Initialization
-**Prompt:** `"Initialize git repo"`
-
-The AI follows this automated workflow:
-1. **Local Git Setup** - Initializes repository with proper `.gitignore`
-2. **GitHub Repository** - Creates private repo with issues enabled via GitHub CLI
-3. **Scoped Authentication** - Generates repository-specific GitHub PAT with minimal permissions
-4. **MCP Configuration** - Updates `.cursor/mcp.json` with the scoped token
-5. **Initial Commit** - Pushes template to `main` branch using SSH authentication
-
-### 📋 PRD-Driven Development
-**User-Controlled Workflow:**
-
-1. **Express Intent** - `"Help me create a PRD for [your project idea]"`
-2. **Collaborative Refinement** - Work with AI to perfect requirements
-3. **Explicit Acceptance** - `"I accept this PRD. Create the GitHub Issue"`
-   - GitHub Issue becomes the single source of truth
-   - Local PRD file is automatically deleted to prevent confusion
-4. **Explicit Task Generation** - `"Start working on the PRD"`
-5. **Task Confirmation** - `"I want to begin with task [ID]"`
-
-### 🧠 Memory & Context Management
-**Memory MCP Workflow:**
-- **Before Memory Operations** - AI asks: `"May I save this information to the knowledge graph?"`
-- **User Confirmation** - `"Yes, you can update memory"` or `"No, don't save this yet"`
-- **Context Preservation** - Understanding maintained across sessions with explicit consent
-
-### 🔄 Development Loop with Explicit Control
-- **AI Suggests** - Provides recommendations and analysis
-- **User Decides** - Explicit approval required for significant operations
-- **Controlled Automation** - MCP servers assist but don't override user decisions
-- **Progress Tracking** - Development logged with user awareness
-
-### 🎵 The Vibe
-Intelligent assistance with human control:
-1. **Express your intent** in natural language
-2. **AI structures and suggests** work through MCP integration
-3. **You approve and direct** with explicit confirmation points
-4. **Code in flow** with full context awareness and controlled automation
-5. **Ship iteratively** with transparent progress tracking
-
-The MCP servers provide powerful assistance while keeping you in the driver's seat.
-
 ## 📚 Documentation
 
 - **AGENTS.md** - Comprehensive TaskMaster AI integration guide
@@ -264,24 +258,3 @@ These resources provided valuable insights into structuring AI-powered developme
 ---
 
 **Happy vibe coding! 🎵✨**
-
-### 🚀 **Quick Start**
-
-1. **Use This Template**
-   - Click "Use this template" button on GitHub
-   - Or clone: `git clone https://github.com/your-username/project_template.git`
-
-2. **Customize for Your Project**
-   - Update the `README.md` with your project details
-   - Configure `.cursor/mcp.json` with your API keys (copy from `.cursor/mcp.json.example`)
-   - **License Options**: You can keep the existing MIT license, add your own copyright, or replace it entirely based on your needs
-
-3. **Initialize Your Development Environment**
-   ```bash
-   # Install dependencies (if using TaskMaster CLI)
-   npm install -g task-master-ai
-
-   # Set up your environment
-   cp .env.example .env  # Only if using TaskMaster CLI
-   # Add your API keys to .env or .cursor/mcp.json
-   ```
