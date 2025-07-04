@@ -7,6 +7,8 @@ alwaysApply: true
 ## Template Setup Workflow
 For detailed steps on template setup when initializing a project, see [template_setup.mdc](mdc:.cursor/rules/template_setup.mdc).
 
+**IMPORTANT**: Template initialization is ONLY about setting up project structure and configuration. TaskMaster, PRD creation, and git setup are separate workflows that require explicit user requests.
+
 ## MCP Server Workflows
 
 ### Memory MCP
