@@ -5,13 +5,13 @@ alwaysApply: true
 ---
 
 ## Template Setup Workflow
-- **Agent-Driven Initialization**: When a user prompts "set up the template" or "initialize the repo" (for cloned templates), I will automatically handle template setup:
+- **Agent-Driven Initialization**: When a user prompts "initialize this project as <my project name>", I will automatically handle template setup:
   1. **Copy `.cursor/.mcp.json.example` to `.cursor/mcp.json`** and prompt user for their API keys
   2. **Optionally copy `.env.example` to `.env`** only if they plan to use TaskMaster CLI (not needed for MCP workflow)
   3. **Remove template-specific content** and customize for their project:
      - **Move `README.md` to `docs/how_to_use_this_template.md`** to preserve template documentation
-     - **Create new project-specific `README.md`** using the template from `.cursor/templates/project_readme.md`
-     - Replace `[Project Name]` placeholder with user-provided name or "My Project"
+     - **Copy `.cursor/templates/project_readme.md` to the project root as `README.md`** to create the new project-specific README
+     - **Update the new `README.md`** by replacing `[Project Name]` placeholder with user-provided name or "My Project"
      - Update `SECURITY.md` to remove template references
      - Remove or update any hardcoded paths in configuration files
 - **Environment File Distinction**:
@@ -53,29 +53,15 @@ alwaysApply: true
 When you request to "initialize git repo" (only needed for cloned templates), I will perform the following steps:
 1. **Clear template git history**: Remove the existing `.git` directory to start fresh (`rm -rf .git`).
 2. Initialize a local Git repository (`git init`).
-3. Create a `.gitignore` file with at least the following entries:
-   ```
-   # Environment & Configuration
-   .env
-   .cursor/mcp.json
-
-   # Taskmaster & AI
-   specstory/
-   .taskmaster/tasks/
-
-   # Dependencies
-   node_modules/
-   venv/
-   ```
-4. Use the **GitHub CLI** (not MCP server) to create a new **private** remote repository on GitHub:
+3. Use the **GitHub CLI** (not MCP server) to create a new **private** remote repository on GitHub:
    ```bash
    gh repo create --private --enable-issues --clone=false
    ```
-5. Create a repository-scoped GitHub Personal Access Token using the GitHub CLI:
+4. Create a repository-scoped GitHub Personal Access Token using the GitHub CLI:
    ```bash
    gh auth token --hostname github.com --scopes "issues:write,contents:read,metadata:read" --repo-specific
    ```
-6. Update the `.cursor/mcp.json` file to use the new scoped GitHub PAT in the GitHub MCP server configuration:
+5. Update the `.cursor/mcp.json` file to use the new scoped GitHub PAT in the GitHub MCP server configuration:
    ```json
    "github": {
      "url": "https://api.githubcopilot.com/mcp/",
@@ -84,7 +70,7 @@ When you request to "initialize git repo" (only needed for cloned templates), I 
      }
    }
    ```
-7. Add the new remote to the local repository, stage all initial files, and push the first commit to the `main` branch:
+6. Add the new remote to the local repository, stage all initial files, and push the first commit to the `main` branch:
    ```bash
    git remote add origin git@github.com:username/repo-name.git  # Use SSH format for authentication
    git add .
@@ -122,12 +108,7 @@ When you request to "initialize git repo" (only needed for cloned templates), I 
 
 ### CLI Best Practices
 - **Always use SSH format for git remotes** (`git@github.com:user/repo.git`) rather than HTTPS format to leverage SSH key authentication instead of token-based authentication
-- **CRITICAL: Always append `| cat` to commands that use pagers** to prevent interactive paging that requires manual exit with `:q`. This is MANDATORY for:
-  - **Git commands**: `git log --oneline -5 | cat`, `git show HEAD | cat`, `git diff | cat`
-  - **GitHub CLI display commands**: `gh repo view | cat`, `gh pr view | cat`, `gh issue view | cat`, `gh pr show | cat`, `gh issue show | cat`, `gh release view | cat`, `gh auth status | cat`, `gh help | cat`
-  - **GitHub CLI list commands**: `gh pr list | cat`, `gh issue list | cat`, `gh repo list | cat`, `gh release list | cat`, `gh run list | cat`
-  - **GitHub CLI diff/log commands**: `gh pr diff | cat`, `gh run view | cat`
-  - **GitHub CLI API commands**: `gh api | cat` (when expecting large responses or to prevent potential paging)
-  - **Man pages**: `man git | cat`, `man gh | cat`
-  - **Any command that might output more than a screen's worth of content**
-- **Rule Exception**: Only omit `| cat` when you specifically need interactive features (like `git add -p` for patch mode) or when using action commands that don't display large amounts of output (like `gh pr create`, `gh issue create`, `gh repo create`)
+- **Prevent interactive paging**: Set pager environment variable at the start of each terminal session:
+  ```bash
+  export PAGER=""
+  ```

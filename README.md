@@ -26,7 +26,7 @@ A comprehensive project template for **vibe coding** in Cursor with pre-configur
    cd your-project-name
    cursor .
    ```
-4. Prompt the AI agent: `"Set up the template for my new project"`
+4. Prompt the AI agent: `"initialize this project as <my project name>"`
 
 **Alternative: Clone Template Directly**
 ```bash
@@ -67,7 +67,7 @@ cp .env.example .env  # Optional
 ### 2. Start Vibe Coding
 ```bash
 cursor .
-# For GitHub template usage: "Set up the template for my new project"
+# For GitHub template usage: "initialize this project as <my project name>"
 # For cloned templates: "Initialize the repo for my new project"
 ```
 
