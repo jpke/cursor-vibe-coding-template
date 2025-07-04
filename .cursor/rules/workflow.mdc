@@ -1,0 +1,55 @@
+---
+description: Rules for project workflows including Git, Taskmaster, and Memory MCP.
+globs: "**/*"
+alwaysApply: true
+---
+
+- **Memory MCP Workflow**:
+  - **User Confirmation Required**: Before creating, updating, or deleting any entities or relationships in the Memory MCP's knowledge graph, I must first explain what I intend to do and ask for your explicit confirmation.
+
+- **Taskmaster Workflow**:
+  - **PRD as GitHub Issue**:
+    1. After generating a Product Requirements Document (PRD), I will work with you to validate its contents.
+    2. Once you accept the PRD, I will create a GitHub Issue in the project's repository containing the full text of the PRD.
+    3. This GitHub Issue will serve as the single source of truth for the project's requirements. The local PRD file should be considered a temporary draft.
+  - **Task Generation Trigger**: I will only generate tasks from the PRD Issue after you explicitly tell me to "start working on the PRD" or give a similar instruction.
+  - **Task Confirmation**: After Taskmaster generates tasks, I must confirm with you which task to begin work on *before* executing any of them.
+
+- **Git Initialization Workflow**:
+  - When you request to "initialize git repo", I will perform the following steps:
+    1.  Initialize a local Git repository (`git init`).
+    2.  Create a `.gitignore` file with at least the following entries:
+        ```
+        # Taskmaster & AI
+        specstory/
+        .cursor/mcp.json
+        .taskmaster/tasks/
+
+        # Dependencies
+        node_modules/
+        venv/
+        ```
+    3.  Use the **GitHub CLI** (not MCP server) to create a new **private** remote repository on GitHub:
+        ```bash
+        gh repo create --private --enable-issues --clone=false
+        ```
+    4.  Create a repository-scoped GitHub Personal Access Token using the GitHub CLI:
+        ```bash
+        gh auth token --hostname github.com --scopes "issues:write,contents:read,metadata:read" --repo-specific
+        ```
+    5.  Update the `.cursor/mcp.json` file to use the new scoped GitHub PAT in the GitHub MCP server configuration:
+        ```json
+        "github": {
+          "url": "https://api.githubcopilot.com/mcp/",
+          "headers": {
+            "Authorization": "Bearer <new_scoped_pat>"
+          }
+        }
+        ```
+    6.  Add the new remote to the local repository, stage all initial files, and push the first commit to the `main` branch:
+        ```bash
+        git remote add origin <repo_url>
+        git add .
+        git commit -m "feat: initial project template setup"
+        git push -u origin main
+        ```
