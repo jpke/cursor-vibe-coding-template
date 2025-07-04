@@ -2,6 +2,64 @@
 
 A comprehensive project template for **vibe coding** in Cursor with pre-configured AI tooling, MCP servers, and intelligent development workflows.
 
+## Table of Contents
+
+- [Quick Start](#-quick-start)
+- [Features](#-features)
+- [What's Included](#-whats-included)
+- [Vibe Coding Workflow](#-vibe-coding-workflow)
+- [Configuration](#-configuration)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+## 🚀 Quick Start
+
+### 1. Template Setup (After Cloning)
+
+**Agent-Driven Setup (Recommended)**
+```bash
+# After cloning the template to your project folder
+cd my-new-project
+
+# Open in Cursor
+cursor .
+
+# Then prompt the AI agent:
+# "Initialize the repo for my new project"
+```
+
+The AI agent will automatically handle all template setup including:
+- Setting up your MCP configuration
+- Customizing files for your project
+- Initializing git repository and GitHub repo
+
+**Manual Setup (If Preferred)**
+```bash
+# After cloning the template to your project folder
+cd my-new-project
+
+# REQUIRED: Set up MCP configuration
+cp .cursor/.mcp.json.example .cursor/mcp.json
+# Edit .cursor/mcp.json with your API keys
+
+# Optional: Copy .env only if you plan to use TaskMaster CLI
+# (Not needed for the recommended MCP workflow)
+cp .env.example .env  # Optional
+# Add your API keys to .env  # Only if using CLI
+
+# IMPORTANT: Customize for your project
+# - Replace this README.md with your project's README
+# - Update SECURITY.md to remove template references
+# - Remove or update any hardcoded paths in configuration files
+```
+
+### 2. Start Vibe Coding
+```bash
+cursor .
+# Then prompt: "Initialize the repo for my new project"
+```
+
 ## ✨ Features
 
 This template provides a ready-to-use development environment with:
@@ -50,53 +108,6 @@ project_template/
 ├── AGENTS.md                 # TaskMaster integration guide
 ├── CLAUDE.md                 # Claude Code integration guide
 └── .env.example              # Optional: Environment variables for CLI usage only
-```
-
-## 🚀 Quick Start
-
-### 1. Template Setup (After Cloning)
-
-**Agent-Driven Setup (Recommended)**
-```bash
-# After cloning the template to your project folder
-cd my-new-project
-
-# Open in Cursor
-cursor .
-
-# Then prompt the AI agent:
-# "Initialize the repo for my new project"
-```
-
-The AI agent will automatically handle all template setup including:
-- Setting up your MCP configuration
-- Customizing files for your project
-- Initializing git repository and GitHub repo
-
-**Manual Setup (If Preferred)**
-```bash
-# After cloning the template to your project folder
-cd my-new-project
-
-# REQUIRED: Set up MCP configuration
-cp .cursor/.mcp.json.example .cursor/mcp.json
-# Edit .cursor/mcp.json with your API keys
-
-# Optional: Copy .env only if you plan to use TaskMaster CLI
-# (Not needed for the recommended MCP workflow)
-cp .env.example .env  # Optional
-# Add your API keys to .env  # Only if using CLI
-
-# IMPORTANT: Customize for your project
-# - Replace this README.md with your project's README
-# - Update SECURITY.md to remove template references
-# - Remove or update any hardcoded paths in configuration files
-```
-
-### 2. Start Vibe Coding
-```bash
-cursor .
-# Then prompt: "Initialize the repo for my new project"
 ```
 
 ## 🎯 Vibe Coding Workflow

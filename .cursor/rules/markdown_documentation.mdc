@@ -1,0 +1,59 @@
+---
+description: "Standards for accurate, concise, and professional markdown documentation with clear organization and navigation"
+globs: "*.md"
+alwaysApply: false
+---
+
+# Markdown Documentation Standards
+
+## Core Principles
+- **Accuracy**: All information must be current, tested, and factually correct
+- **Conciseness**: Communicate maximum value with minimum words
+- **Professionalism**: Use clear, consistent tone and proper formatting
+
+## Content Organization
+
+### Information Hierarchy
+- **Lead with value**: Most critical information in first 2-3 paragraphs
+- **Progressive disclosure**: Details follow overview, specifics follow general
+- **Scannable structure**: Use headings, bullets, and whitespace strategically
+
+### Content Quality
+- **Eliminate duplication**: Each piece of information appears once
+- **Link don't repeat**: Reference other sections rather than duplicating content
+- **Update holistically**: When changing one section, review related sections
+
+## Structure Requirements
+
+### Navigation
+- **Table of Contents**: For files >200 lines or >5 main sections
+- **Consistent headings**: Use semantic hierarchy (H1 → H2 → H3)
+- **Cross-references**: Link related sections and external resources
+
+### Formatting Standards
+- **Code blocks**: Always specify language (`json`, `bash`, `typescript`)
+- **Lists**: Use bullets for items, numbers for sequential steps
+- **Tables**: For structured data comparison
+- **Callouts**: Use `>` for important notes, warnings, or tips
+
+## File-Specific Guidelines
+
+### README.md
+1. **Hook**: Project purpose in first sentence
+2. **Quick start**: Installation/usage in first section
+3. **Core features**: Key functionality overview
+4. **Developer info**: Setup, contributing, license
+
+### Technical Documentation
+- **Prerequisites**: Required knowledge, tools, versions
+- **Examples**: Working code snippets, not pseudo-code
+- **Troubleshooting**: Common issues with solutions
+- **References**: Links to official docs, RFCs, specifications
+
+## Quality Checks
+- [ ] Information is current and accurate
+- [ ] No duplicate content across sections
+- [ ] Most important info appears early
+- [ ] Structure enables quick scanning
+- [ ] All code examples work as written
+- [ ] Links are functional and relevant
