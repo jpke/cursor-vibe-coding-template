@@ -1,6 +1,6 @@
 ---
 description: Detailed steps for template setup workflow when initializing a project
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Template Setup Workflow
@@ -30,3 +30,8 @@ When a user prompts "initialize this project as <my project name>", I will **ONL
 
 ## After Template Initialization
 Template initialization is complete after customizing the project files. TaskMaster, PRD creation, and git setup are separate workflows that require explicit user requests.
+
+### Final Step: Remove from Context Window
+After completing template initialization, update this rule file to stop consuming context space:
+- **Change `alwaysApply: true` to `alwaysApply: false`** in the frontmatter of `.cursor/rules/template_setup.mdc`
+- This prevents the detailed template setup instructions from taking up context window space after the one-time setup is complete
