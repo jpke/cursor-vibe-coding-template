@@ -264,3 +264,24 @@ These resources provided valuable insights into structuring AI-powered developme
 ---
 
 **Happy vibe coding! 🎵✨**
+
+### 🚀 **Quick Start**
+
+1. **Use This Template**
+   - Click "Use this template" button on GitHub
+   - Or clone: `git clone https://github.com/your-username/project_template.git`
+
+2. **Customize for Your Project**
+   - Replace `[Your Name]` in the `LICENSE` file with your actual name or organization
+   - Update the `README.md` with your project details
+   - Configure `.cursor/mcp.json` with your API keys (copy from `.cursor/mcp.json.example`)
+
+3. **Initialize Your Development Environment**
+   ```bash
+   # Install dependencies (if using TaskMaster CLI)
+   npm install -g task-master-ai
+
+   # Set up your environment
+   cp .env.example .env  # Only if using TaskMaster CLI
+   # Add your API keys to .env or .cursor/mcp.json
+   ```
