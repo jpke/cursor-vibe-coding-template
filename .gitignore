@@ -32,4 +32,12 @@ venv/
 # Task files
 .taskmaster/tasks/
 # tasks.json
-tasks/ 
+tasks/
+
+# Security scanning
+results.sarif
+.gitleaks-report.json
+gitleaks-report.json
+trufflehog-report.json
+.secrets-baseline
+*.secrets
