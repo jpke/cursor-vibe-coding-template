@@ -119,12 +119,11 @@ When you request to "initialize git repo", I will perform the following steps:
 ### CLI Best Practices
 - **Always use SSH format for git remotes** (`git@github.com:user/repo.git`) rather than HTTPS format to leverage SSH key authentication instead of token-based authentication
 - **CRITICAL: Always append `| cat` to commands that use pagers** to prevent interactive paging that requires manual exit with `:q`. This is MANDATORY for:
-  - `git log` commands: `git log --oneline -5 | cat`
-  - `git show` commands: `git show HEAD | cat`
-  - `git diff` commands: `git diff | cat`
-  - `gh repo view` commands: `gh repo view | cat`
-  - `gh pr view` commands: `gh pr view | cat`
-  - `gh issue view` commands: `gh issue view | cat`
-  - `man` commands: `man git | cat`
-  - Any command that might output more than a screen's worth of content
-- **Rule Exception**: Only omit `| cat` when you specifically need interactive features (like `git add -p` for patch mode)
+  - **Git commands**: `git log --oneline -5 | cat`, `git show HEAD | cat`, `git diff | cat`
+  - **GitHub CLI display commands**: `gh repo view | cat`, `gh pr view | cat`, `gh issue view | cat`, `gh pr show | cat`, `gh issue show | cat`, `gh release view | cat`, `gh auth status | cat`, `gh help | cat`
+  - **GitHub CLI list commands**: `gh pr list | cat`, `gh issue list | cat`, `gh repo list | cat`, `gh release list | cat`, `gh run list | cat`
+  - **GitHub CLI diff/log commands**: `gh pr diff | cat`, `gh run view | cat`
+  - **GitHub CLI API commands**: `gh api | cat` (when expecting large responses or to prevent potential paging)
+  - **Man pages**: `man git | cat`, `man gh | cat`
+  - **Any command that might output more than a screen's worth of content**
+- **Rule Exception**: Only omit `| cat` when you specifically need interactive features (like `git add -p` for patch mode) or when using action commands that don't display large amounts of output (like `gh pr create`, `gh issue create`, `gh repo create`)
