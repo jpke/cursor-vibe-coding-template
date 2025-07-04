@@ -230,13 +230,26 @@ The MCP servers provide powerful assistance while keeping you in the driver's se
 - `.cursor/rules/` - Detailed coding rules and patterns
 - `.taskmaster/templates/` - PRD templates and examples
 
+## 📄 License
+
+MIT License - see the [LICENSE](LICENSE) file for details.
+
 ## 🤝 Contributing
 
 This template evolves with usage. The `meta_rules.mdc` enables self-improving patterns - rules automatically update based on emerging patterns in your codebase.
 
-## 📄 License
+### How to Contribute
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
 
-[Add your license here]
+## 🔗 Related Projects
+
+- [TaskMaster AI](https://github.com/your-org/task-master-ai) - The core task management system
+- [Cursor](https://cursor.sh/) - The AI-powered code editor this template is designed for
 
 ---
 
