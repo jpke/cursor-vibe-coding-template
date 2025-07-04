@@ -28,6 +28,52 @@ When a user prompts "initialize this project as <my project name>", I will **ONL
 - **Project `.env`**: Will contain application-specific configuration (database URLs, app API keys, etc.)
 - **Never mix these**: TaskMaster configuration is separate from project application configuration
 
+## Branch Protection Setup (Optional)
+If the new project is a GitHub repository, consider setting up branch protection rules to match the template:
+
+### Enable Issues
+First, ensure issues are enabled in the repository:
+
+```bash
+# Enable issues in the repository
+gh api repos/OWNER/REPO --method PATCH --field has_issues=true
+```
+
+### Required Branch Protection Rules
+Apply these settings to the `main` branch:
+
+```bash
+# Enable branch protection with pull request reviews
+gh api repos/OWNER/REPO/branches/main/protection \
+  --method PUT \
+  --field required_status_checks='{"strict":true,"contexts":[],"checks":[]}' \
+  --field required_pull_request_reviews='{"dismiss_stale_reviews":false,"require_code_owner_reviews":false,"require_last_push_approval":false,"required_approving_review_count":1}' \
+  --field required_signatures='{"enabled":false}' \
+  --field enforce_admins='{"enabled":false}' \
+  --field required_linear_history='{"enabled":false}' \
+  --field allow_force_pushes='{"enabled":true}' \
+  --field allow_deletions='{"enabled":false}' \
+  --field block_creations='{"enabled":false}' \
+  --field required_conversation_resolution='{"enabled":false}' \
+  --field lock_branch='{"enabled":false}' \
+  --field allow_fork_syncing='{"enabled":false}'
+```
+
+### Branch Protection Summary
+- **Pull Request Reviews**: 1 approval required
+- **Status Checks**: Strict mode enabled
+- **Force Pushes**: Allowed
+- **Branch Deletions**: Disabled
+- **Admin Enforcement**: Disabled (admins can bypass)
+
+### Alternative: Manual Setup
+1. Go to repository Settings → Branches
+2. Add rule for `main` branch
+3. Enable "Require a pull request before merging"
+4. Set "Required number of approvals before merging" to 1
+5. Enable "Require status checks to pass before merging"
+6. Check "Require branches to be up to date before merging"
+
 ## After Template Initialization
 Template initialization is complete after customizing the project files. TaskMaster, PRD creation, and git setup are separate workflows that require explicit user requests.
 
