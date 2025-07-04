@@ -55,20 +55,74 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['javascript', 'python', 'java', 'go', 'csharp', 'cpp']
+        language: ['javascript', 'python', 'go', 'typescript', 'swift', 'github-actions']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check if language files exist
+        id: check-language
+        run: |
+          case "${{ matrix.language }}" in
+            javascript)
+              if find . -name "*.js" -o -name "*.jsx" -o -name "*.mjs" -o -name "*.cjs" | head -1 | grep -q .; then
+                echo "has-files=true" >> $GITHUB_OUTPUT
+              else
+                echo "has-files=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            typescript)
+              if find . -name "*.ts" -o -name "*.tsx" -o -name "*.mts" -o -name "*.cts" | head -1 | grep -q .; then
+                echo "has-files=true" >> $GITHUB_OUTPUT
+              else
+                echo "has-files=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            python)
+              if find . -name "*.py" -o -name "*.pyi" -o -name "*.pyw" | head -1 | grep -q .; then
+                echo "has-files=true" >> $GITHUB_OUTPUT
+              else
+                echo "has-files=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            go)
+              if find . -name "*.go" | head -1 | grep -q .; then
+                echo "has-files=true" >> $GITHUB_OUTPUT
+              else
+                echo "has-files=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            swift)
+              if find . -name "*.swift" | head -1 | grep -q .; then
+                echo "has-files=true" >> $GITHUB_OUTPUT
+              else
+                echo "has-files=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            github-actions)
+              if find .github/workflows -name "*.yml" -o -name "*.yaml" | head -1 | grep -q .; then
+                echo "has-files=true" >> $GITHUB_OUTPUT
+              else
+                echo "has-files=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            *)
+              echo "has-files=false" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
       - name: Initialize CodeQL
+        if: steps.check-language.outputs.has-files == 'true'
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
 
       - name: Autobuild
+        if: steps.check-language.outputs.has-files == 'true'
         uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
+        if: steps.check-language.outputs.has-files == 'true'
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{matrix.language}}"
