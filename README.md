@@ -272,9 +272,9 @@ These resources provided valuable insights into structuring AI-powered developme
    - Or clone: `git clone https://github.com/your-username/project_template.git`
 
 2. **Customize for Your Project**
-   - Replace `[Your Name]` in the `LICENSE` file with your actual name or organization
    - Update the `README.md` with your project details
    - Configure `.cursor/mcp.json` with your API keys (copy from `.cursor/mcp.json.example`)
+   - **License Options**: You can keep the existing MIT license, add your own copyright, or replace it entirely based on your needs
 
 3. **Initialize Your Development Environment**
    ```bash
