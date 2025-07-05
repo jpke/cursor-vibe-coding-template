@@ -48,7 +48,8 @@ For detailed steps on initializing a git repository when cloning the template di
   3. **Commit Changes**: `git add .` and `git commit -m "descriptive message"`
   4. **Push Branch**: `git push -u origin feature/descriptive-name`
   5. **🚨 CRITICAL: Open Pull Request**: `gh pr create --title "Title" --body "Description"` or use GitHub web interface - **THIS STEP IS MANDATORY**
-  6. **Merge via PR**: Never use `git push origin main` directly
+  6. **Return to Main**: `git checkout main && git pull origin main` - **ALWAYS do this after creating PR to prepare for next task**
+  7. **Merge via PR**: Never use `git push origin main` directly
 - **Branch Naming Conventions**:
   - `feature/feature-name` for new features
   - `fix/bug-description` for bug fixes
